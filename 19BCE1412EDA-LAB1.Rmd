@@ -1,0 +1,71 @@
+---
+title: "19BCE1412-EDA-LAB1"
+author: "Aishwarya S S"
+date: "31/01/2022"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Reg. No: 19BCE1412
+
+### Name: Aishwarya S S
+
+* * *
+
+## Title - Regression
+
+## Aim:
+Understand the following operations/functions on ‘mtcars’ dataset and perform similar operations on ‘CreditWorthiness.csv’ dataset based on given instructions.
+
+## Clear the R environment
+
+```{r}
+rm(list=ls()) 
+```
+
+## Importing the dataset
+
+```{r}
+library(readr)
+data <- read_csv("CreditWorthiness.csv")
+View(data) 
+```
+
+
+```{r}
+library(dplyr)		#dplyr is a library, which has functions related to data analysis
+data <- sample_n(data,15)
+
+# install.packages("ggplot2") 
+library("ggplot2")         
+ggplot(data,aes(x=data$Camt,y=data$Cdur))+geom_point() 
+# To plot - wt/gear
+cor.test(data$Camt,data$Cdur)   
+# to find the correlation value
+
+```
+
+## simple linear regression
+```{r}
+slr = lm(Camt~Cdur, data) 
+summary(slr)
+plot(slr$resid)  # Residual plot
+qqnorm(slr$resid)   #Q-Q Plot
+slr$residuals
+
+```
+
+## Multiple linear regression
+
+```{r}
+mlr = lm(Camt~Cdur+NumCred, data) 
+summary(mlr)
+plot(mlr$resid)  # Residual plot
+qqnorm(mlr$resid)   #Q-Q Plot
+
+```
